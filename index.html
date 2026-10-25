@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DM+Serif+Display&family=DotGothic16&family=Karla:wght@400;600;700&family=Manrope:wght@400;600;800&family=Monoton&family=Noto+Sans+TC:wght@400;700&family=Nunito+Sans:wght@400;700&family=Press+Start+2P&family=Righteous&family=Space+Mono:wght@400;700&family=VT323&display=swap">
-<link rel="stylesheet" href="css/jukebox.css?v=202610250351">
+<link rel="stylesheet" href="css/jukebox.css?v=202610250648">
 </head>
 <body>
 
@@ -212,10 +212,15 @@
 
         <!-- lyrics -->
         <div class="pane" data-pane="lyrics">
+          <div class="lyrics-head">
+            <span class="lyrics-status" id="lyricsStatus"></span>
+            <a class="mini-btn" id="lyricsPage" href="#" target="_blank" rel="noopener noreferrer" hidden><svg><use href="#i-ext"/></svg><span><span lang="zh-Hant">在歌詞網站查看</span><span lang="en">View on lyrics site</span></span><small id="lyricsPageHost"></small></a>
+          </div>
           <div class="lyrics" id="lyrics"></div>
-          <div class="empty" id="lyricsEmpty">
-            <span lang="zh-Hant">這首歌沒有歌詞檔。在試算表的「歌詞」欄填入 .lrc 檔網址，就能同步顯示滾動歌詞。</span>
-            <span lang="en">No lyrics file for this song. Put an .lrc URL in the sheet's "LRC" column to get synced, scrolling lyrics.</span>
+          <div class="lyrics-plain" id="lyricsPlain" hidden></div>
+          <div class="empty" id="lyricsEmpty" hidden>
+            <p id="lyricsEmptyMsg"></p>
+            <p class="small"><span lang="zh-Hant">在「點歌清單」的「LRC 網址」欄填入 .lrc 檔或 LRCLIB 網址，就能顯示隨音樂捲動的歌詞。</span><span lang="en">Put an .lrc file or LRCLIB URL in the sheet's "LRC URL" column to get lyrics that scroll with the music.</span></p>
           </div>
         </div>
 
@@ -381,6 +386,16 @@ https://docs.google.com/spreadsheets/d/…</span></span>
   <span data-k="seek"><span lang="zh-Hant">播放進度</span><span lang="en">Position</span></span>
   <span data-k="popout"><span lang="zh-Hant">開啟彈出式小視窗</span><span lang="en">Open the pop-out player</span></span>
   <span data-k="expand"><span lang="zh-Hant">展開／收合</span><span lang="en">Expand / collapse</span></span>
+  <span data-k="lyricsNone"><span lang="zh-Hant">暫無歌詞資料</span><span lang="en">No lyrics available</span></span>
+  <span data-k="lyricsError"><span lang="zh-Hant">歌詞載入錯誤</span><span lang="en">Couldn't load the lyrics</span></span>
+  <span data-k="lyricsLoading"><span lang="zh-Hant">正在尋找歌詞…</span><span lang="en">Looking for lyrics…</span></span>
+  <span data-k="lyricsSynced"><span lang="zh-Hant">同步歌詞</span><span lang="en">Synced lyrics</span></span>
+  <span data-k="lyricsAuto"><span lang="zh-Hant">同步歌詞（LRCLIB 自動搜尋，時間可能有落差）</span><span lang="en">Synced lyrics (LRCLIB auto-search; timing may be off)</span></span>
+  <span data-k="lyricsPlain"><span lang="zh-Hant">這份歌詞沒有時間軸，不會隨音樂捲動</span><span lang="en">These lyrics have no timing, so they won't scroll with the music</span></span>
+  <span data-k="tagGenre"><span lang="zh-Hant">曲風</span><span lang="en">Genre</span></span>
+  <span data-k="tagMood"><span lang="zh-Hant">心情</span><span lang="en">Mood</span></span>
+  <span data-k="moreN"><span lang="zh-Hant">更多 <b data-n></b></span><span lang="en"><b data-n></b> more</span></span>
+  <span data-k="less"><span lang="zh-Hant">收合</span><span lang="en">Show less</span></span>
   <span data-k="modeBtn"><span lang="zh-Hant">切換播放模式</span><span lang="en">Change play mode</span></span>
 </div>
 
@@ -394,6 +409,7 @@ https://docs.google.com/spreadsheets/d/…</span></span>
   <span data-col="start">起始|開始</span>
   <span data-col="end">結束</span>
   <span data-col="lrc">歌詞</span>
+  <span data-col="lyricsPage">歌詞網頁|歌ネット|歌詞サイト|歌詞網站</span>
   <span data-col="enabled">啟用|顯示</span>
   <span data-col="approved">核准|審核|通過</span>
   <span data-col="requester">點歌者|暱稱|姓名</span>
@@ -410,10 +426,10 @@ https://docs.google.com/spreadsheets/d/…</span></span>
   <tr><td>YOASOBI</td><td>HEART BEAT</td><td>https://youtu.be/ZSr3P-Rn6x0</td></tr>
 </table>
 
-<script src="js/config.js?v=202610250351"></script>
-<script src="js/core.js?v=202610250351"></script>
-<script src="js/engines.js?v=202610250351"></script>
-<script src="js/guard.js?v=202610250351"></script>
-<script src="js/ui.js?v=202610250351"></script>
+<script src="js/config.js?v=202610250648"></script>
+<script src="js/core.js?v=202610250648"></script>
+<script src="js/engines.js?v=202610250648"></script>
+<script src="js/guard.js?v=202610250648"></script>
+<script src="js/ui.js?v=202610250648"></script>
 </body>
 </html>

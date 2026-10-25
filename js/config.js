@@ -32,5 +32,8 @@ window.AEML_JUKEBOX_CONFIG = {
     volume: 80
   },
 
+  // When a song has no "LRC URL", search LRCLIB (lrclib.net) by artist + title for time-synced lyrics.
+  autoLyrics: true,
+
   popup: { width: 440, height: 840, name: 'aeml_jukebox' }
 };
