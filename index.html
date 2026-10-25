@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DM+Serif+Display&family=DotGothic16&family=Karla:wght@400;600;700&family=Manrope:wght@400;600;800&family=Monoton&family=Noto+Sans+TC:wght@400;700&family=Nunito+Sans:wght@400;700&family=Press+Start+2P&family=Righteous&family=Space+Mono:wght@400;700&family=VT323&display=swap">
-<link rel="stylesheet" href="css/jukebox.css?v=202610250310">
+<link rel="stylesheet" href="css/jukebox.css?v=202610250351">
 </head>
 <body>
 
@@ -89,6 +89,8 @@
     <!-- ============ player column ============ -->
     <section class="deck-col">
       <div class="stage" id="stage">
+        <div class="art" aria-hidden="true"></div>
+        <div class="glow" aria-hidden="true"></div>
         <div class="deco" aria-hidden="true">
           <div class="d d-neon">
             <span class="arch a1"></span><span class="arch a2"></span>
@@ -133,27 +135,29 @@
         <div class="now-meta" id="nowMeta"></div>
       </div>
 
-      <div class="progress">
-        <span class="tm" id="tCur">0:00</span>
-        <input type="range" id="seek" min="0" max="1000" value="0" step="1" data-tip="seek">
-        <span class="tm" id="tDur">0:00</span>
-      </div>
-
-      <div class="controls">
-        <button type="button" class="ctl ctl-mode" id="btnMode"><svg><use href="#i-loop"/></svg></button>
-        <button type="button" class="ctl ctl-small" id="btnBack" data-tip="back10"><svg><use href="#i-back10"/></svg></button>
-        <button type="button" class="ctl" id="btnPrev" data-tip="prev"><svg><use href="#i-prev"/></svg></button>
-        <button type="button" class="ctl ctl-play" id="btnPlay" data-tip="play"><svg><use href="#i-play"/></svg></button>
-        <button type="button" class="ctl" id="btnNext" data-tip="next"><svg><use href="#i-next"/></svg></button>
-        <button type="button" class="ctl ctl-small" id="btnFwd" data-tip="fwd10"><svg><use href="#i-fwd10"/></svg></button>
-        <button type="button" class="ctl ctl-video" id="btnVideo" aria-pressed="false"><svg><use href="#i-video-off"/></svg></button>
-      </div>
-
-      <div class="subcontrols">
-        <button type="button" class="icon-btn" id="btnMute" data-tip="mute"><svg><use href="#i-vol"/></svg></button>
-        <input type="range" id="vol" min="0" max="100" value="80" data-tip="volume">
-        <span class="mode-label" id="modeLabel"></span>
-        <span class="cf-chip" id="cfChip"></span>
+      <div class="console">
+        <div class="progress">
+          <span class="tm" id="tCur">0:00</span>
+          <input type="range" id="seek" min="0" max="1000" value="0" step="1" data-tip="seek">
+          <span class="tm" id="tDur">0:00</span>
+        </div>
+        <div class="c-left">
+          <button type="button" class="ctl ctl-mode" id="btnMode"><svg><use href="#i-loop"/></svg></button>
+          <span class="mode-label" id="modeLabel"></span>
+          <span class="cf-chip" id="cfChip"></span>
+        </div>
+        <div class="controls">
+          <button type="button" class="ctl ctl-small" id="btnBack" data-tip="back10"><svg><use href="#i-back10"/></svg></button>
+          <button type="button" class="ctl" id="btnPrev" data-tip="prev"><svg><use href="#i-prev"/></svg></button>
+          <button type="button" class="ctl ctl-play" id="btnPlay" data-tip="play"><svg><use href="#i-play"/></svg></button>
+          <button type="button" class="ctl" id="btnNext" data-tip="next"><svg><use href="#i-next"/></svg></button>
+          <button type="button" class="ctl ctl-small" id="btnFwd" data-tip="fwd10"><svg><use href="#i-fwd10"/></svg></button>
+        </div>
+        <div class="c-right">
+          <button type="button" class="ctl ctl-video" id="btnVideo" aria-pressed="false"><svg><use href="#i-video-off"/></svg></button>
+          <button type="button" class="icon-btn" id="btnMute" data-tip="mute"><svg><use href="#i-vol"/></svg></button>
+          <input type="range" id="vol" min="0" max="100" value="80" data-tip="volume">
+        </div>
       </div>
     </section>
 
@@ -306,7 +310,7 @@
   </main>
 
   <footer class="credit" id="aeml-credit">
-    <svg><use href="#i-note"/></svg><span>AEML Jukebox</span><span class="dot">·</span><span>&copy; 2026 <b>AEML, NTUST</b></span>
+    <svg><use href="#i-note"/></svg><span>AEML Jukebox</span><span>&copy; 2026 <b>AEML, NTUST</b></span>
   </footer>
 
   <div class="toasts" id="toasts" aria-live="polite"></div>
@@ -406,10 +410,10 @@ https://docs.google.com/spreadsheets/d/…</span></span>
   <tr><td>YOASOBI</td><td>HEART BEAT</td><td>https://youtu.be/ZSr3P-Rn6x0</td></tr>
 </table>
 
-<script src="js/config.js?v=202610250310"></script>
-<script src="js/core.js?v=202610250310"></script>
-<script src="js/engines.js?v=202610250310"></script>
-<script src="js/guard.js?v=202610250310"></script>
-<script src="js/ui.js?v=202610250310"></script>
+<script src="js/config.js?v=202610250351"></script>
+<script src="js/core.js?v=202610250351"></script>
+<script src="js/engines.js?v=202610250351"></script>
+<script src="js/guard.js?v=202610250351"></script>
+<script src="js/ui.js?v=202610250351"></script>
 </body>
 </html>
