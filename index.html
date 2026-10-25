@@ -1,0 +1,415 @@
+<!doctype html>
+<!--
+  AEML Jukebox v1.0
+  (c) 2026 AEML, NTUST. All rights reserved.
+  Original: https://chuntaoc.github.io/jukebox/
+  Unauthorized copying, modification or redistribution of this page or its scripts is prohibited.
+  Integrity of this page is verified at runtime; tampered copies stop working.
+-->
+<html lang="zh-Hant" data-lang="zh" data-theme="neon" data-layout="full">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="author" content="AEML, NTUST">
+<meta name="copyright" content="(c) 2026 AEML, NTUST">
+<meta name="generator" content="AEML Jukebox 1.0">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>AEML Jukebox</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23ff3ea5'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%230d0618'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DM+Serif+Display&family=DotGothic16&family=Karla:wght@400;600;700&family=Manrope:wght@400;600;800&family=Monoton&family=Noto+Sans+TC:wght@400;700&family=Nunito+Sans:wght@400;700&family=Press+Start+2P&family=Righteous&family=Space+Mono:wght@400;700&family=VT323&display=swap">
+<link rel="stylesheet" href="css/jukebox.css?v=202610250310">
+</head>
+<body>
+
+<!-- ============ icon sprite ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="5" width="4.2" height="14" rx="1.2" fill="currentColor"/><rect x="13.8" y="5" width="4.2" height="14" rx="1.2" fill="currentColor"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M6 5v14M19 5.8v12.4a.8.8 0 0 1-1.24.67L9 12.67a.8.8 0 0 1 0-1.34l8.76-6.2A.8.8 0 0 1 19 5.8z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M18 5v14M5 5.8v12.4a.8.8 0 0 0 1.24.67L15 12.67a.8.8 0 0 0 0-1.34L6.24 5.13A.8.8 0 0 0 5 5.8z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-back10" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></g><text x="12.3" y="15.6" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Arial,sans-serif" fill="currentColor">10</text></symbol>
+    <symbol id="i-fwd10" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4L21 8"/><path d="M21 3v5h-5"/></g><text x="11.7" y="15.6" text-anchor="middle" font-size="8.5" font-weight="700" font-family="Arial,sans-serif" fill="currentColor">10</text></symbol>
+    <symbol id="i-seq" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h11M4 12h11M4 17h7"/><path d="M17 14l3 3-3 3"/></g></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></g></symbol>
+    <symbol id="i-one" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/><path d="M11 10l1.5-1v6"/></g></symbol>
+    <symbol id="i-shuffle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></g></symbol>
+    <symbol id="i-smart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/></g><path d="M7 2.5l.9 2.1 2.1.9-2.1.9L7 8.5l-.9-2.1L4 5.5l2.1-.9z" fill="currentColor"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4z"/></g></symbol>
+    <symbol id="i-video-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.7 6H14a2 2 0 0 1 2 2v3.3l1 1L22 8v8"/><path d="M16 16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h2"/><path d="M2 2l20 20"/></g></symbol>
+    <symbol id="i-qadd" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h12M3 12h12M3 18h7"/><path d="M18 14v8M14 18h8"/></g></symbol>
+    <symbol id="i-qnext" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3 9l4 3-4 3z" fill="currentColor"/></g></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-grip" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="6" r="1.5"/><circle cx="9" cy="12" r="1.5"/><circle cx="15" cy="12" r="1.5"/><circle cx="9" cy="18" r="1.5"/><circle cx="15" cy="18" r="1.5"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></g></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/></g></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></g></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6h12M9 12h12M9 18h12"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></g></symbol>
+    <symbol id="i-queue" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18M3 10h18M3 15h10"/><path d="M17 14v6l4-3z" fill="currentColor"/></g></symbol>
+    <symbol id="i-lyrics" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></g></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></g></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="12" height="14" rx="2"/><path d="M13 3h8v8M21 3l-9 9"/></g></symbol>
+    <symbol id="i-vol" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></g></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5L6 9H2v6h4l5 4z" fill="currentColor"/><path d="M22 9l-6 6M16 9l6 6"/></g></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M6 15l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><g fill="currentColor"><path d="M9 17.5V6.2a1 1 0 0 1 .78-.98l9-2A1 1 0 0 1 20 4.2V15.5" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="6.5" cy="17.5" rx="3.5" ry="2.8"/><ellipse cx="17.5" cy="15.5" rx="3.5" ry="2.8"/></g></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h1M7 8v8M11 4v16M15 7v10M19 10v4M22 12h-1"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="app" id="app">
+
+  <!-- ============ top bar ============ -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><svg><use href="#i-note"/></svg></span>
+      <span class="brand-name"><span lang="zh-Hant">點唱機</span><span lang="en">Jukebox</span></span>
+      <span class="brand-sub">AEML</span>
+    </div>
+    <div class="top-actions">
+      <button type="button" class="pill" id="btnRequest">
+        <svg><use href="#i-mic"/></svg><span><span lang="zh-Hant">我要點歌</span><span lang="en">Request</span></span>
+      </button>
+      <div class="seg seg-lang" role="group" aria-label="Language">
+        <button type="button" data-lang-set="zh">中</button>
+        <button type="button" data-lang-set="both">中/EN</button>
+        <button type="button" data-lang-set="en">EN</button>
+      </div>
+      <button type="button" class="icon-btn" id="btnPop" data-tip="popout"><svg><use href="#i-ext"/></svg></button>
+      <button type="button" class="icon-btn" id="btnBarToggle" data-tip="expand"><svg><use href="#i-expand"/></svg></button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <!-- ============ player column ============ -->
+    <section class="deck-col">
+      <div class="stage" id="stage">
+        <div class="deco" aria-hidden="true">
+          <div class="d d-neon">
+            <span class="arch a1"></span><span class="arch a2"></span>
+            <span class="tube t1"><i></i><i></i><i></i><i></i></span>
+            <span class="tube t2"><i></i><i></i><i></i><i></i></span>
+            <span class="marquee">JUKEBOX</span>
+          </div>
+          <div class="d d-vinyl">
+            <div class="plinth"></div>
+            <div class="platter"><div class="record"><div class="label"><span>AEML</span></div></div></div>
+            <div class="tonearm"><span class="pivot"></span><span class="arm"></span><span class="head"></span></div>
+            <span class="speed">33&#8531;</span>
+          </div>
+          <div class="d d-minimal">
+            <span class="m-index" id="mIndex">01</span>
+          </div>
+          <div class="d d-pixel">
+            <span class="sky"></span><span class="stars"></span><span class="moon"></span><span class="city"></span>
+          </div>
+          <div class="d d-cassette">
+            <div class="shell">
+              <div class="jcard"><span class="jc-side">A</span><span class="jc-title" id="jcTitle">AEML MIXTAPE</span></div>
+              <div class="window"><span class="reel rl"><i></i></span><span class="tape"></span><span class="reel rr"><i></i></span></div>
+              <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="screen" id="screen">
+          <div class="slot" id="slotA"><div class="yt-host"></div></div>
+          <div class="slot" id="slotB"><div class="yt-host"></div></div>
+          <div class="screen-idle"><svg><use href="#i-note"/></svg><span>AEML</span></div>
+          <span class="screen-badge"><svg><use href="#i-wave"/></svg><span lang="zh-Hant">音樂模式</span><span lang="en">Audio mode</span></span>
+        </div>
+      </div>
+
+      <canvas class="viz" id="viz" aria-hidden="true"></canvas>
+
+      <div class="now">
+        <div class="now-title" id="nowTitle">&nbsp;</div>
+        <div class="now-artist" id="nowArtist">&nbsp;</div>
+        <div class="now-meta" id="nowMeta"></div>
+      </div>
+
+      <div class="progress">
+        <span class="tm" id="tCur">0:00</span>
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1" data-tip="seek">
+        <span class="tm" id="tDur">0:00</span>
+      </div>
+
+      <div class="controls">
+        <button type="button" class="ctl ctl-mode" id="btnMode"><svg><use href="#i-loop"/></svg></button>
+        <button type="button" class="ctl ctl-small" id="btnBack" data-tip="back10"><svg><use href="#i-back10"/></svg></button>
+        <button type="button" class="ctl" id="btnPrev" data-tip="prev"><svg><use href="#i-prev"/></svg></button>
+        <button type="button" class="ctl ctl-play" id="btnPlay" data-tip="play"><svg><use href="#i-play"/></svg></button>
+        <button type="button" class="ctl" id="btnNext" data-tip="next"><svg><use href="#i-next"/></svg></button>
+        <button type="button" class="ctl ctl-small" id="btnFwd" data-tip="fwd10"><svg><use href="#i-fwd10"/></svg></button>
+        <button type="button" class="ctl ctl-video" id="btnVideo" aria-pressed="false"><svg><use href="#i-video-off"/></svg></button>
+      </div>
+
+      <div class="subcontrols">
+        <button type="button" class="icon-btn" id="btnMute" data-tip="mute"><svg><use href="#i-vol"/></svg></button>
+        <input type="range" id="vol" min="0" max="100" value="80" data-tip="volume">
+        <span class="mode-label" id="modeLabel"></span>
+        <span class="cf-chip" id="cfChip"></span>
+      </div>
+    </section>
+
+    <!-- ============ panel column ============ -->
+    <section class="panel-col">
+      <nav class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="lib" aria-selected="true"><svg><use href="#i-list"/></svg><span><span lang="zh-Hant">歌單</span><span lang="en">Library</span></span></button>
+        <button type="button" role="tab" data-tab="queue"><svg><use href="#i-queue"/></svg><span><span lang="zh-Hant">佇列</span><span lang="en">Queue</span></span><b class="badge" id="qBadge" hidden>0</b></button>
+        <button type="button" role="tab" data-tab="lyrics"><svg><use href="#i-lyrics"/></svg><span><span lang="zh-Hant">歌詞</span><span lang="en">Lyrics</span></span></button>
+        <button type="button" role="tab" data-tab="mine"><svg><use href="#i-user"/></svg><span><span lang="zh-Hant">我的歌單</span><span lang="en">My List</span></span></button>
+        <button type="button" role="tab" data-tab="settings"><svg><use href="#i-gear"/></svg><span><span lang="zh-Hant">設定</span><span lang="en">Settings</span></span></button>
+      </nav>
+
+      <div class="panes">
+        <!-- library -->
+        <div class="pane is-active" data-pane="lib">
+          <label class="search"><svg><use href="#i-search"/></svg><input type="search" id="q" autocomplete="off" data-ph="searchPh"></label>
+          <div class="chips" id="srcChips">
+            <button type="button" class="chip" data-src="all"><span lang="zh-Hant">全部</span><span lang="en">All</span></button>
+            <button type="button" class="chip" data-src="default"><span lang="zh-Hant">站長精選</span><span lang="en">Curated</span></button>
+            <button type="button" class="chip" data-src="request"><span lang="zh-Hant">訪客點歌</span><span lang="en">Requests</span></button>
+            <button type="button" class="chip" data-src="mine"><span lang="zh-Hant">我的歌單</span><span lang="en">My List</span></button>
+          </div>
+          <div class="chips chips-tags" id="tagChips"></div>
+          <div class="list-head">
+            <span class="count" id="libCount"></span>
+            <span class="grow"></span>
+            <button type="button" class="mini-btn" id="btnPlayAll"><svg><use href="#i-play"/></svg><span lang="zh-Hant">全部播放</span><span lang="en">Play all</span></button>
+            <button type="button" class="mini-btn" id="btnShuffleAll"><svg><use href="#i-shuffle"/></svg><span lang="zh-Hant">隨機</span><span lang="en">Shuffle</span></button>
+          </div>
+          <ol class="tracks" id="trackList"></ol>
+          <div class="empty" id="libEmpty" hidden><span lang="zh-Hant">沒有符合的歌曲</span><span lang="en">No matching songs</span></div>
+          <div class="empty" id="libLoading"><span class="spinner"></span><span lang="zh-Hant">載入歌單中…</span><span lang="en">Loading playlist…</span></div>
+        </div>
+
+        <!-- queue -->
+        <div class="pane" data-pane="queue">
+          <div class="list-head">
+            <strong><span lang="zh-Hant">接下來播放</span><span lang="en">Up next</span></strong>
+            <span class="grow"></span>
+            <button type="button" class="mini-btn" id="btnClearQ"><svg><use href="#i-x"/></svg><span lang="zh-Hant">清空</span><span lang="en">Clear</span></button>
+          </div>
+          <ol class="tracks tracks-queue" id="queueList"></ol>
+          <div class="empty" id="queueEmpty">
+            <span lang="zh-Hant">佇列是空的。在歌單點 <svg class="inl"><use href="#i-qadd"/></svg> 加入佇列，或點 <svg class="inl"><use href="#i-qnext"/></svg> 插隊到下一首。</span>
+            <span lang="en">The queue is empty. Use <svg class="inl"><use href="#i-qadd"/></svg> to add a song, or <svg class="inl"><use href="#i-qnext"/></svg> to play it next.</span>
+          </div>
+          <div class="list-head sub"><span lang="zh-Hant">之後從歌單接續</span><span lang="en">Then from the list</span></div>
+          <ol class="tracks tracks-dim" id="upList"></ol>
+          <div class="empty small" id="upSmart" hidden><span lang="zh-Hant">智慧隨機會依曲風、歌手與播放紀錄即時挑選下一首。</span><span lang="en">Smart shuffle picks each next song on the fly from genre, artist and play history.</span></div>
+        </div>
+
+        <!-- lyrics -->
+        <div class="pane" data-pane="lyrics">
+          <div class="lyrics" id="lyrics"></div>
+          <div class="empty" id="lyricsEmpty">
+            <span lang="zh-Hant">這首歌沒有歌詞檔。在試算表的「歌詞」欄填入 .lrc 檔網址，就能同步顯示滾動歌詞。</span>
+            <span lang="en">No lyrics file for this song. Put an .lrc URL in the sheet's "LRC" column to get synced, scrolling lyrics.</span>
+          </div>
+        </div>
+
+        <!-- my list -->
+        <div class="pane" data-pane="mine">
+          <p class="hint">
+            <span lang="zh-Hant">貼上 YouTube 連結建立你自己的歌單，一行一首。可寫成「歌手 - 歌名 | 連結」，也可以直接從試算表複製整列貼上，或貼一個公開的 Google 試算表網址。</span>
+            <span lang="en">Paste YouTube links to build your own list, one per line. "Artist - Title | link" works, so do rows copied from a spreadsheet, or a link to a public Google Sheet.</span>
+          </p>
+          <textarea id="mineText" rows="9" spellcheck="false" data-ph="minePh"></textarea>
+          <div class="row">
+            <button type="button" class="btn btn-primary" id="btnMineSave"><span lang="zh-Hant">儲存並使用</span><span lang="en">Save &amp; use</span></button>
+            <button type="button" class="btn" id="btnMineClear"><span lang="zh-Hant">清除</span><span lang="en">Clear</span></button>
+          </div>
+          <label class="switch"><input type="checkbox" id="useMine"><span class="knob"></span><span><span lang="zh-Hant">開啟時預設播放我的歌單</span><span lang="en">Start with My List by default</span></span></label>
+          <p class="note"><span lang="zh-Hant">只存在你這台裝置的瀏覽器裡，不會上傳。沒有建立歌單時，預設播放站長精選。</span><span lang="en">Stored only in this browser — nothing is uploaded. Without a list of your own, the curated list plays.</span></p>
+        </div>
+
+        <!-- settings -->
+        <div class="pane" data-pane="settings">
+          <div class="set">
+            <h4><span lang="zh-Hant">外觀風格</span><span lang="en">Style</span></h4>
+            <div class="themes" id="themePick">
+              <button type="button" data-theme-set="neon"><i class="sw sw-neon"></i><span lang="zh-Hant">復古霓虹點唱機</span><span lang="en">Neon jukebox</span></button>
+              <button type="button" data-theme-set="vinyl"><i class="sw sw-vinyl"></i><span lang="zh-Hant">黑膠唱盤</span><span lang="en">Vinyl deck</span></button>
+              <button type="button" data-theme-set="minimal"><i class="sw sw-minimal"></i><span lang="zh-Hant">極簡現代</span><span lang="en">Minimal</span></button>
+              <button type="button" data-theme-set="pixel"><i class="sw sw-pixel"></i><span lang="zh-Hant">像素復古</span><span lang="en">Pixel retro</span></button>
+              <button type="button" data-theme-set="cassette"><i class="sw sw-cassette"></i><span lang="zh-Hant">卡帶機</span><span lang="en">Cassette</span></button>
+            </div>
+          </div>
+          <div class="set">
+            <h4><span lang="zh-Hant">語言</span><span lang="en">Language</span></h4>
+            <div class="seg seg-wide" role="group">
+              <button type="button" data-lang-set="zh">中文</button>
+              <button type="button" data-lang-set="both">中文 / English</button>
+              <button type="button" data-lang-set="en">English</button>
+            </div>
+          </div>
+          <div class="set">
+            <h4><span lang="zh-Hant">視訊</span><span lang="en">Video</span></h4>
+            <div class="seg seg-wide" role="group">
+              <button type="button" data-video-set="0"><span lang="zh-Hant">關閉（音樂模式）</span><span lang="en">Off (audio mode)</span></button>
+              <button type="button" data-video-set="1"><span lang="zh-Hant">開啟</span><span lang="en">On</span></button>
+            </div>
+            <p class="note"><span lang="zh-Hant">關閉時播放器縮成小視窗嵌在外觀裡。依 YouTube 規定播放器須保持可見，廣告由 YouTube 決定，無法移除；自有音檔（mp3 等）則沒有廣告。</span><span lang="en">When off, the player shrinks into a small window inside the skin. YouTube requires the player to stay visible and controls its own ads; your own audio files (mp3 etc.) have none.</span></p>
+          </div>
+          <div class="set">
+            <h4><span lang="zh-Hant">播放模式</span><span lang="en">Play mode</span></h4>
+            <div class="seg seg-wide seg-wrap" role="group">
+              <button type="button" data-mode-set="seq"><svg><use href="#i-seq"/></svg><span lang="zh-Hant">順序播放</span><span lang="en">In order</span></button>
+              <button type="button" data-mode-set="loop"><svg><use href="#i-loop"/></svg><span lang="zh-Hant">列表循環</span><span lang="en">Repeat all</span></button>
+              <button type="button" data-mode-set="one"><svg><use href="#i-one"/></svg><span lang="zh-Hant">單曲循環</span><span lang="en">Repeat one</span></button>
+              <button type="button" data-mode-set="shuffle"><svg><use href="#i-shuffle"/></svg><span lang="zh-Hant">隨機播放</span><span lang="en">Shuffle</span></button>
+              <button type="button" data-mode-set="smart"><svg><use href="#i-smart"/></svg><span lang="zh-Hant">智慧隨機</span><span lang="en">Smart shuffle</span></button>
+            </div>
+          </div>
+          <div class="set">
+            <h4><span lang="zh-Hant">交叉淡入淡出</span><span lang="en">Crossfade</span></h4>
+            <div class="seg seg-wide" role="group">
+              <button type="button" data-cf-set="0"><span lang="zh-Hant">關閉</span><span lang="en">Off</span></button>
+              <button type="button" data-cf-set="3">3s</button>
+              <button type="button" data-cf-set="5">5s</button>
+              <button type="button" data-cf-set="8">8s</button>
+            </div>
+            <p class="note" id="cfMobileNote" hidden><span lang="zh-Hant">手機瀏覽器不允許兩首同時發聲，交叉淡入淡出在此裝置上會自動停用。</span><span lang="en">Mobile browsers can't play two tracks at once, so crossfade is disabled on this device.</span></p>
+          </div>
+          <div class="set">
+            <label class="switch"><input type="checkbox" id="optGapless"><span class="knob"></span><span><span lang="zh-Hant">無縫播放（Gapless）</span><span lang="en">Gapless playback</span></span></label>
+            <p class="note"><span lang="zh-Hant">自有音檔可做到零秒差銜接；YouTube 來源會預先載入下一首，把空隙縮到最短，但無法真正零秒差。</span><span lang="en">Your own audio files join with zero gap. YouTube tracks are preloaded to keep the gap short, but true gapless isn't possible there.</span></p>
+          </div>
+          <div class="set">
+            <label class="switch"><input type="checkbox" id="optViz"><span class="knob"></span><span><span lang="zh-Hant">音波動畫</span><span lang="en">Visualizer</span></span></label>
+            <label class="switch"><input type="checkbox" id="optReq"><span class="knob"></span><span><span lang="zh-Hant">歌單中顯示訪客點歌</span><span lang="en">Show visitor requests in the library</span></span></label>
+          </div>
+          <div class="set">
+            <h4><span lang="zh-Hant">快捷鍵</span><span lang="en">Shortcuts</span></h4>
+            <dl class="keys">
+              <dt><kbd>Space</kbd></dt><dd><span lang="zh-Hant">播放／暫停</span><span lang="en">Play / pause</span></dd>
+              <dt><kbd>←</kbd> <kbd>→</kbd></dt><dd><span lang="zh-Hant">倒退／快轉 10 秒</span><span lang="en">Back / forward 10 s</span></dd>
+              <dt><kbd>P</kbd> <kbd>N</kbd></dt><dd><span lang="zh-Hant">上一首／下一首</span><span lang="en">Previous / next</span></dd>
+              <dt><kbd>↑</kbd> <kbd>↓</kbd></dt><dd><span lang="zh-Hant">音量</span><span lang="en">Volume</span></dd>
+              <dt><kbd>M</kbd> <kbd>V</kbd> <kbd>S</kbd></dt><dd><span lang="zh-Hant">靜音／視訊／切換播放模式</span><span lang="en">Mute / video / cycle mode</span></dd>
+              <dt><kbd>/</kbd></dt><dd><span lang="zh-Hant">搜尋</span><span lang="en">Search</span></dd>
+            </dl>
+          </div>
+          <div class="set about">
+            <span lang="zh-Hant">AEML 點唱機 v1.0 · 由 AEML, NTUST 設計開發</span><span lang="en">AEML Jukebox v1.0 · Designed and built by AEML, NTUST</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="credit" id="aeml-credit">
+    <svg><use href="#i-note"/></svg><span>AEML Jukebox</span><span class="dot">·</span><span>&copy; 2026 <b>AEML, NTUST</b></span>
+  </footer>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <div class="tamper" id="aeml-tamper" hidden>
+    <div class="tamper-card">
+      <strong>AEML, NTUST</strong>
+      <p><span lang="zh-Hant">此點唱機的程式碼或標示已被修改，或在未授權的網址執行，已停止運作。</span><span lang="en">This jukebox's code or credits were modified, or it is running from an unauthorized address, so it has stopped.</span></p>
+      <p class="tamper-src">Original: <a href="https://chuntaoc.github.io/jukebox/" target="_blank" rel="noopener">chuntaoc.github.io/jukebox</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ UI strings used by scripts (scripts stay pure ASCII) ============ -->
+<div id="aeml-i18n" hidden>
+  <span data-k="docTitle"><span lang="zh-Hant">點唱機</span><span lang="en">Jukebox</span></span>
+  <span data-k="loadFail"><span lang="zh-Hant">無法讀取歌單試算表，改用內建備援歌單</span><span lang="en">Couldn't read the playlist sheet — using the built-in backup list</span></span>
+  <span data-k="reqFail"><span lang="zh-Hant">訪客點歌清單讀取失敗</span><span lang="en">Couldn't load visitor requests</span></span>
+  <span data-k="mineFail"><span lang="zh-Hant">讀不到這個試算表，請確認已設為「知道連結的任何人都能檢視」</span><span lang="en">Can't read that sheet — make sure it's shared as "Anyone with the link can view"</span></span>
+  <span data-k="count"><span lang="zh-Hant">共 <b data-n></b> 首</span><span lang="en"><b data-n></b> songs</span></span>
+  <span data-k="added"><span lang="zh-Hant">已加入佇列</span><span lang="en">Added to queue</span></span>
+  <span data-k="addedNext"><span lang="zh-Hant">已排到下一首</span><span lang="en">Will play next</span></span>
+  <span data-k="queuedAll"><span lang="zh-Hant">已將 <b data-n></b> 首加入佇列</span><span lang="en">Queued <b data-n></b> songs</span></span>
+  <span data-k="removed"><span lang="zh-Hant">已從佇列移除</span><span lang="en">Removed from queue</span></span>
+  <span data-k="cleared"><span lang="zh-Hant">佇列已清空</span><span lang="en">Queue cleared</span></span>
+  <span data-k="trackErr"><span lang="zh-Hant">這首無法播放（可能禁止嵌入或已下架），跳到下一首</span><span lang="en">Can't play this one (embedding off or removed) — skipping</span></span>
+  <span data-k="manyErr"><span lang="zh-Hant">連續多首無法播放，已停止</span><span lang="en">Several songs failed in a row — stopped</span></span>
+  <span data-k="ended"><span lang="zh-Hant">歌單播放完畢</span><span lang="en">End of the list</span></span>
+  <span data-k="mineSaved"><span lang="zh-Hant">已儲存 <b data-n></b> 首到我的歌單</span><span lang="en">Saved <b data-n></b> songs to My List</span></span>
+  <span data-k="mineEmpty"><span lang="zh-Hant">沒有找到可用的 YouTube 連結</span><span lang="en">No usable YouTube links found</span></span>
+  <span data-k="mineCleared"><span lang="zh-Hant">已清除我的歌單</span><span lang="en">My List cleared</span></span>
+  <span data-k="reqNotSet"><span lang="zh-Hant">點歌表單尚未設定</span><span lang="en">The request form isn't set up yet</span></span>
+  <span data-k="gotSong"><span lang="zh-Hant">已加入：<b data-n></b></span><span lang="en">Added: <b data-n></b></span></span>
+  <span data-k="popBlocked"><span lang="zh-Hant">彈出視窗被瀏覽器封鎖了，請允許此網站的彈出視窗</span><span lang="en">The pop-up was blocked — please allow pop-ups for this site</span></span>
+  <span data-k="otherPlaying"><span lang="zh-Hant">另一個點唱機視窗開始播放，這裡先暫停</span><span lang="en">Another jukebox window started playing — paused here</span></span>
+  <span data-k="resume"><span lang="zh-Hant">上次聽到這裡，按播放繼續</span><span lang="en">Press play to pick up where you left off</span></span>
+  <span data-k="upNext"><span lang="zh-Hant">下一首</span><span lang="en">Next</span></span>
+  <span data-k="requestedBy"><span lang="zh-Hant">點歌者</span><span lang="en">Requested by</span></span>
+  <span data-k="crossfading"><span lang="zh-Hant">淡入淡出中</span><span lang="en">Crossfading</span></span>
+  <span data-k="untitled"><span lang="zh-Hant">（未命名）</span><span lang="en">(untitled)</span></span>
+  <span data-k="searchPh"><span lang="zh-Hant">搜尋歌名、歌手、標籤…</span><span lang="en">Search title, artist, tag…</span></span>
+  <span data-k="minePh"><span lang="zh-Hant">YOASOBI - 好きだ | https://youtu.be/WQ6ePunO8uY
+https://youtu.be/vd3IlOjSUGQ
+https://docs.google.com/spreadsheets/d/…</span><span lang="en">YOASOBI - Suki da | https://youtu.be/WQ6ePunO8uY
+https://youtu.be/vd3IlOjSUGQ
+https://docs.google.com/spreadsheets/d/…</span></span>
+  <span data-k="mode_seq"><span lang="zh-Hant">順序播放</span><span lang="en">In order</span></span>
+  <span data-k="mode_loop"><span lang="zh-Hant">列表循環</span><span lang="en">Repeat all</span></span>
+  <span data-k="mode_one"><span lang="zh-Hant">單曲循環</span><span lang="en">Repeat one</span></span>
+  <span data-k="mode_shuffle"><span lang="zh-Hant">隨機播放</span><span lang="en">Shuffle</span></span>
+  <span data-k="mode_smart"><span lang="zh-Hant">智慧隨機</span><span lang="en">Smart shuffle</span></span>
+  <span data-k="play"><span lang="zh-Hant">播放</span><span lang="en">Play</span></span>
+  <span data-k="pause"><span lang="zh-Hant">暫停</span><span lang="en">Pause</span></span>
+  <span data-k="prev"><span lang="zh-Hant">上一首</span><span lang="en">Previous</span></span>
+  <span data-k="next"><span lang="zh-Hant">下一首</span><span lang="en">Next</span></span>
+  <span data-k="back10"><span lang="zh-Hant">倒退 10 秒</span><span lang="en">Back 10 s</span></span>
+  <span data-k="fwd10"><span lang="zh-Hant">快轉 10 秒</span><span lang="en">Forward 10 s</span></span>
+  <span data-k="videoOn"><span lang="zh-Hant">視訊：開啟</span><span lang="en">Video: on</span></span>
+  <span data-k="videoOff"><span lang="zh-Hant">視訊：關閉</span><span lang="en">Video: off</span></span>
+  <span data-k="addQ"><span lang="zh-Hant">加入佇列</span><span lang="en">Add to queue</span></span>
+  <span data-k="playNextQ"><span lang="zh-Hant">插隊：下一首播放</span><span lang="en">Play next</span></span>
+  <span data-k="playNow"><span lang="zh-Hant">立即播放</span><span lang="en">Play now</span></span>
+  <span data-k="remove"><span lang="zh-Hant">移除</span><span lang="en">Remove</span></span>
+  <span data-k="up"><span lang="zh-Hant">上移</span><span lang="en">Move up</span></span>
+  <span data-k="down"><span lang="zh-Hant">下移</span><span lang="en">Move down</span></span>
+  <span data-k="mute"><span lang="zh-Hant">靜音</span><span lang="en">Mute</span></span>
+  <span data-k="volume"><span lang="zh-Hant">音量</span><span lang="en">Volume</span></span>
+  <span data-k="seek"><span lang="zh-Hant">播放進度</span><span lang="en">Position</span></span>
+  <span data-k="popout"><span lang="zh-Hant">開啟彈出式小視窗</span><span lang="en">Open the pop-out player</span></span>
+  <span data-k="expand"><span lang="zh-Hant">展開／收合</span><span lang="en">Expand / collapse</span></span>
+  <span data-k="modeBtn"><span lang="zh-Hant">切換播放模式</span><span lang="en">Change play mode</span></span>
+</div>
+
+<!-- Column headers recognised in Google Sheets (in addition to English names) -->
+<div id="aeml-cols" hidden>
+  <span data-col="artist">歌手|演唱|藝人|歌者</span>
+  <span data-col="title">歌名|曲名|標題|歌曲</span>
+  <span data-col="url">連結|網址|影片</span>
+  <span data-col="genre">曲風|類型|分類</span>
+  <span data-col="mood">心情|情境|標籤</span>
+  <span data-col="start">起始|開始</span>
+  <span data-col="end">結束</span>
+  <span data-col="lrc">歌詞</span>
+  <span data-col="enabled">啟用|顯示</span>
+  <span data-col="approved">核准|審核|通過</span>
+  <span data-col="requester">點歌者|暱稱|姓名</span>
+  <span data-col="note">留言|備註</span>
+</div>
+
+<!-- Built-in backup list, used only if the Google Sheet can't be reached -->
+<table id="aeml-fallback" hidden>
+  <tr><th>歌手</th><th>歌名</th><th>Youtube 連結</th></tr>
+  <tr><td>YOASOBI</td><td>好きだ</td><td>https://youtu.be/WQ6ePunO8uY</td></tr>
+  <tr><td>YOASOBI</td><td>ハルカ</td><td>https://youtu.be/vd3IlOjSUGQ</td></tr>
+  <tr><td>YOASOBI</td><td>咲き誇れ</td><td>https://youtu.be/qwYhKlY4Tx0</td></tr>
+  <tr><td>YOASOBI</td><td>BABY</td><td>https://youtu.be/tWqZxTAy7rU</td></tr>
+  <tr><td>YOASOBI</td><td>HEART BEAT</td><td>https://youtu.be/ZSr3P-Rn6x0</td></tr>
+</table>
+
+<script src="js/config.js?v=202610250310"></script>
+<script src="js/core.js?v=202610250310"></script>
+<script src="js/engines.js?v=202610250310"></script>
+<script src="js/guard.js?v=202610250310"></script>
+<script src="js/ui.js?v=202610250310"></script>
+</body>
+</html>
